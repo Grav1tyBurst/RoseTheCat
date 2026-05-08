@@ -1,2 +1,2 @@
 # RoseTheCat
-Web Site dedicated to my cat
+Web-site dedicated to my cat
