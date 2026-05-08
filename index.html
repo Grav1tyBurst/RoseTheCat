@@ -377,6 +377,27 @@
 </head>
 <body>
 
+<script>
+    // Оживляем кнопки в липкой шапке
+    document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const sectionId = this.getAttribute('data-section');
+            
+            // Если нажали "Погладить" — уходим на страницу pet.html
+            if (sectionId === 'pet') {
+                window.location.href = 'pet.html';
+            } 
+            // Иначе — плавно скроллим к секции на этой же странице
+            else {
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+</script>
+
 <!-- Липкая панель навигации -->
 <div class="sticky-nav">
     <button class="nav-link" data-section="hero">🏠 Главная</button>
@@ -388,7 +409,7 @@
 </div>
 
 <div class="container">
-    <div class="hero">
+    <div class="hero"> id="hero"
         <img class="hero-photo" src="images/glasses.jpg" alt="Роза в очках">
         <div class="hero-title">
             <div class="hero-name">Роза -</div>
@@ -403,14 +424,14 @@
         <i class="fas fa-paw paw-icon"></i>
     </div>
 
-    <div class="section">
+    <div class="section"> id="gallery"
         <div class="section-title">🐾 Знакомьтесь — я Роза</div>
         <div class="text-content">
             <p style="font-size: 1.1rem;">Я наглая, но ласковая кошка, которая живёт со своей семьёй уже 3 года. На этой странице можно узнать интересные факты обо мне!</p>
         </div>
     </div>
 
-    <div style="text-align: center; margin: 1rem 0 0.5rem 0;">
+    <div style="text-align: center; margin: 1rem 0 0.5rem 0;"> id="pet"
         <a href="pet.html" style="display: inline-block; background: #545B64; color: #FCF1F2; padding: 1rem 2rem; border-radius: 60px; text-decoration: none; font-weight: 700; font-family: 'Montserrat', sans-serif; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
             🐾 Ткни сюда, чтобы погладить Розу 🐾
         </a>
@@ -450,7 +471,7 @@
         <i class="fas fa-paw paw-icon"></i>
     </div>
 
-    <div class="section">
+    <div class="section"> id="about"
         <div class="section-title">😺 Обо мне 🐱</div>
         <div class="text-content">
             <div class="story-text">
@@ -468,7 +489,7 @@
         <i class="fas fa-paw paw-icon"></i>
     </div>
 
-    <div class="section">
+    <div class="section"> 	id="features"
         <div class="section-title">✨ Мои особенности</div>
         <div class="text-content">
             <div class="features-block">
@@ -499,7 +520,7 @@
     </a>
 </div>
 
-    <div class="section">
+    <div class="section"> id="contact"
         <div class="section-title">📞 Связаться со мной</div>
         <div class="text-content">
             <div class="contact-buttons">
