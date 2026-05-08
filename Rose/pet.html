@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Погладь кошку — Роза</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F3F3F3;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Только для ПК: курсор-лапка */
+        @media (hover: hover) and (pointer: fine) {
+            body {
+                cursor: url('IconPaw.png') 12 5, auto;
+            }
+            body:active {
+                cursor: url('CPaw.png') 12 5, auto;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            border-radius: 0;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Шапка с возвратом на главную */
+        .back-header {
+            padding: 1rem 2rem;
+            background: #4A4A4A;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #FCF1F2;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: 0.2s;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-3px);
+        }
+
+        .back-link:active {
+            transform: scale(0.97);
+        }
+
+        /* Главный блок с кнопкой */
+        .pet-section {
+            background: #F3F3F3;
+            padding: 2rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pet-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 2rem;
+        }
+
+        /* Большая кнопка-лапка */
+        .paw-btn {
+            background: linear-gradient(145deg, #545B64, #3d434a);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .paw-btn i {
+            font-size: 6rem;
+            color: #FCF1F2;
+        }
+
+        .paw-btn span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FCF1F2;
+        }
+
+        .paw-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #6a7480, #4a525c);
+        }
+
+        .paw-btn:active {
+            transform: scale(0.97);
+            transition: 0.05s;
+        }
+
+        /* Счётчик поглаживаний */
+        .counter-wrapper {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: #545B64;
+            padding: 0.8rem 1.5rem;
+            border-radius: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .counter-wrapper i {
+            font-size: 1.5rem;
+            color: #FCF1F2;
+        }
+
+        .counter-label {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            color: #FCF1F2;
+            font-size: 0.9rem;
+        }
+
+        .counter-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FCF1F2;
+            line-height: 1;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* Кнопка сброса (маленькая) */
+        .reset-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #FCF1F2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Уведомление */
+        #custom-notification {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #545B64;
+            color: #FCF1F2;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1000;
+            font-family: 'Nunito', sans-serif;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .pet-title {
+                font-size: 1.8rem;
+            }
+            .paw-btn {
+                width: 200px;
+                height: 200px;
+            }
+            .paw-btn i {
+                font-size: 4rem;
+            }
+            .paw-btn span {
+                font-size: 1.2rem;
+            }
+            .counter-wrapper {
+                bottom: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            .counter-value {
+                font-size: 1.4rem;
+                min-width: 45px;
+            }
+            .counter-label {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Анимация при поглаживании */
+        @keyframes pawPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .paw-btn:active i {
+            animation: pawPulse 0.15s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Шапка с кнопкой назад -->
+    <div class="back-header">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> 
+            Вернуться к Розе
+        </a>
+    </div>
+
+    <!-- Главная секция -->
+    <div class="pet-section">
+        <h1 class="pet-title">Погладь кошку. Аккуратно.</h1>
+        
+        <button class="paw-btn" id="petButton">
+            <i class="fas fa-paw"></i>
+            <span>Погладил!</span>
+        </button>
+        
+        <p style="color: #888; font-size: 0.85rem;">* нажми на лапку, чтобы погладить Розу</p>
+    </div>
+
+    <!-- Счётчик поглаживаний -->
+    <div class="counter-wrapper">
+        <i class="fas fa-heart"></i>
+        <span class="counter-label">поглаживаний:</span>
+        <span class="counter-value" id="petCounter">0</span>
+        <button class="reset-btn" id="resetCounter" title="Сбросить счётчик">
+            <i class="fas fa-undo-alt"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Уведомления -->
+<div id="custom-notification">
+    <p id="notification-message" style="margin-bottom: 1rem; font-size: 1.1rem;"></p>
+    <button onclick="closeNotification()" style="background: #FCF1F2; color: #545B64; border: none; padding: 0.5rem 1.5rem; border-radius: 2rem; cursor: pointer; font-weight: bold; font-family: 'Nunito', sans-serif;">Мяу 😸</button>
+</div>
+<div id="overlay" onclick="closeNotification()"></div>
+
+<script>
+    // Ключ для localStorage
+    const STORAGE_KEY = 'roza_pet_counter';
+    
+    // Получаем счётчик из localStorage или начинаем с 0
+    let petCount = localStorage.getItem(STORAGE_KEY);
+    if (petCount === null) {
+        petCount = 0;
+    } else {
+        petCount = parseInt(petCount);
+    }
+    
+    // Обновляем отображение счётчика
+    const counterElement = document.getElementById('petCounter');
+    const petButton = document.getElementById('petButton');
+    const resetButton = document.getElementById('resetCounter');
+    
+    function updateCounterDisplay() {
+        counterElement.textContent = petCount;
+        // Сохраняем в localStorage
+        localStorage.setItem(STORAGE_KEY, petCount);
+    }
+    
+    // Функция показа уведомления
+    function showNotification(message) {
+        document.getElementById('notification-message').innerText = message;
+        document.getElementById('custom-notification').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+    
+    function closeNotification() {
+        document.getElementById('custom-notification').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+    
+    // Обработчик поглаживания
+    function addPet() {
+        petCount++;
+        updateCounterDisplay();
+        
+        // Разные сообщения в зависимости от количества
+        if (petCount === 1) {
+            showNotification('Мур!');
+        } else if (petCount === 5) {
+            showNotification('Пять поглаживаний - это уже неплохо');
+        } else if (petCount === 10) {
+            showNotification('10 раз! Я начинаю привыкать к этому');
+        } else if (petCount === 20) {
+            showNotification('20! Давай ещё');
+        } else if (petCount === 50) {
+            showNotification('Да, мне это тоже приятно (:');
+        } else if (petCount % 10 === 0) {
+            showNotification(`Уже ${petCount} раз! Мур-мур 🐾`);
+        } else {
+            // Случайные мяу-сообщения для разнообразия
+            const messages = [
+                'Муррр ',
+                'Ещё! Ещё! 🐾',
+                'Приятно, когда гладят ^^',
+                'Продолжай.',
+                'Спасибо, друг! ',
+                '*мурлычет*',
+                '🐾',
+                'Не забудь помыть руки потом'
+            ];
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            showNotification(messages[randomIndex]);
+        }
+    }
+    
+    // Сброс счётчика
+    function resetCounter() {
+        if (confirm('Точно сбросить все поглаживания? Роза будет грустить 😿')) {
+            petCount = 0;
+            updateCounterDisplay();
+            showNotification('Счётчик сброшен... Познакомимся заново?');
+        }
+    }
+    
+    // Назначаем обработчики
+    petButton.addEventListener('click', addPet);
+    resetButton.addEventListener('click', resetCounter);
+    
+    // Инициализируем отображение
+    updateCounterDisplay();
+    
+    // Добавляем красивую анимацию при загрузке
+    console.log('Роза готова к поглаживаниям! 🐱');
+</script>
+
+</body>
+</html>
