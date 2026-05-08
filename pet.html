@@ -51,8 +51,11 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             margin-bottom: 2rem;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            user-select: none;
         }
 
         .paw-btn i {
@@ -69,12 +72,13 @@
 
         .paw-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
             background: linear-gradient(145deg, #6a7480, #4a525c);
         }
 
         .paw-btn:active {
             transform: scale(0.97);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             transition: 0.05s;
         }
 
@@ -127,18 +131,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         .reset-btn:hover {
             background: rgba(255,255,255,0.4);
             transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .reset-btn:active {
             transform: scale(0.95);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        /* Баннер-уведомление (тост) — ПОЛУПРОЗРАЧНЫЙ */
+        /* Баннер-уведомление (тост) */
         .toast-notification {
             position: fixed;
             bottom: 30px;
@@ -171,6 +178,22 @@
         }
         .paw-btn:active i {
             animation: pawPulse 0.15s ease-out;
+        }
+
+        /* Тени для ссылки назад */
+        .back-link {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .back-link:hover {
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            transform: translateX(-3px);
+        }
+
+        .back-link:active {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateX(-1px);
         }
 
         @media (max-width: 768px) {
@@ -219,22 +242,14 @@
 </head>
 <body>
 
-<!-- Липкая панель навигации -->
-<div class="sticky-nav">
-    <a href="index.html" class="nav-link">🏠 На главную</a>
-    <a href="gallery.html" class="nav-link">📸 Галерея</a>
-    <a href="guestbook.html" class="nav-link">📖 Гостевая</a>
-    <a href="pet.html" class="nav-link active">🐾 Погладить</a>
+<div class="back-header">
+    <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> 
+        Вернуться к Розе
+    </a>
 </div>
 
 <div class="container">
-    <div class="back-header">
-        <a href="index.html" class="back-link">
-            <i class="fas fa-arrow-left"></i> 
-            Вернуться к Розе
-        </a>
-    </div>
-
     <div class="pet-section">
         <h1 class="pet-title">Погладь кошку. Аккуратно.</h1>
         
@@ -254,23 +269,11 @@
             <i class="fas fa-undo-alt"></i>
         </button>
     </div>
-    
-    .paw-btn {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.paw-btn:hover {
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
-}
-
-.paw-btn:active {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
 </div>
 
 <div class="footer-signature">
-        2026 Роза и ИИ
-    </div>
+    2026 Роза и ИИ
+</div>
 
 <script>
     const STORAGE_KEY = 'roza_pet_counter';
