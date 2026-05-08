@@ -250,3 +250,42 @@ body {
         max-height: 80vh;
     }
 }
+/* Убираем выделение при касании на телефонах */
+* {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+}
+
+/* Для гарантии — на всех интерактивных элементах */
+button,
+a,
+.contact-btn,
+.gallery-item,
+.features-img,
+.closing-img,
+.photo-card,
+.back-link,
+.submit-btn,
+.paw-btn,
+[onclick] {
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    user-select: none !important;
+}
+
+/* На телефонах убираем стандартный эффект нажатия */
+@media (max-width: 768px) {
+    button:active,
+    a:active,
+    .contact-btn:active,
+    .gallery-item:active,
+    .features-img:active,
+    .closing-img:active,
+    .photo-card:active,
+    .back-link:active,
+    .submit-btn:active,
+    .paw-btn:active {
+        background-color: transparent !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+}
