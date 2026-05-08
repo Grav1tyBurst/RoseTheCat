@@ -22,6 +22,7 @@ body {
     /* Курсор при зажатой кнопке мыши (клик) */
     body:active {
         cursor: url('../cursors/cursor_pushed.png') 12 5, auto;
+         transition: cursor 0.01s;
     }
     
     /* Курсор при наведении на кликабельные элементы (ссылки, кнопки, фото) */
@@ -288,4 +289,16 @@ a,
         background-color: transparent !important;
         -webkit-tap-highlight-color: transparent !important;
     }
+}
+/* Предзагрузка курсоров */
+body::before {
+    content: '';
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    background-image: url('../cursors/cursor.png'), 
+                      url('../cursors/cursor_active.png'),
+                      url('../cursors/cursor_pushed.png');
+    background-size: 1px 1px;
+    pointer-events: none;
 }
