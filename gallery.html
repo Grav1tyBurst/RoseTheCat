@@ -1,94 +1,108 @@
-// Список фотографий
-const photos = [
-    "images/lies2.jpg",
-    "images/on_chair.jpg",
-    "images/on_couch.jpg",
-    "images/on_shelf.jpg",
-    "images/outdoors.jpg",
-    "images/paws_up.jpg",
-    "images/stays.jpg",
-    "images/with_mars.jpg"
-];
+<script>
+    const photos = [
+        "images/lies2.jpg",
+        "images/on_chair.jpg",
+        "images/on_couch.jpg",
+        "images/on_shelf.jpg",
+        "images/outdoors.jpg",
+        "images/paws_up.jpg",
+        "images/stays.jpg",
+        "images/with_mars.jpg"
+    ];
 
-let currentIndex = 0;
+    let currentIndex = 0;
 
-function renderGallery() {
-    const grid = document.getElementById('photoGrid');
-    grid.innerHTML = '';
-    
-    photos.forEach((photo, index) => {
-        const card = document.createElement('div');
-        card.className = 'photo-card';
-        card.onclick = () => openModal(index);
+    function renderGallery() {
+        const grid = document.getElementById('photoGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
         
-        const img = document.createElement('img');
-        img.src = photo;
-        img.alt = 'Фото Розы';
-        img.onerror = function() {
-            this.src = 'https://placehold.co/400x300?text=Фото+не+найдено';
-            this.style.objectFit = 'contain';
+        photos.forEach((photo, index) => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.onclick = () => openModal(index);
+            
+            const img = document.createElement('img');
+            img.src = photo;
+            img.alt = 'Фото Розы';
+            img.onerror = function() {
+                this.src = 'https://placehold.co/400x300?text=Фото+не+найдено';
+                this.style.objectFit = 'contain';
+            };
+            
+            card.appendChild(img);
+            grid.appendChild(card);
+        });
+    }
+
+    function openModal(index) {
+        currentIndex = index;
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        if (!modal || !modalImg) return;
+        
+        modal.style.display = 'block';
+        modalImg.src = photos[currentIndex];
+        
+        modalImg.onerror = function() {
+            this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
         };
         
-        card.appendChild(img);
-        grid.appendChild(card);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    function navigate(direction) {
+        let newIndex = currentIndex + direction;
+        if (newIndex < 0) newIndex = photos.length - 1;
+        if (newIndex >= photos.length) newIndex = 0;
+        
+        currentIndex = newIndex;
+        const modalImg = document.getElementById('modalImg');
+        if (modalImg) {
+            modalImg.src = photos[currentIndex];
+            
+            modalImg.onerror = function() {
+                this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
+            };
+        }
+    }
+
+    // Ждём загрузки страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        renderGallery();
+        
+        // Закрытие по клику на фон
+        const modal = document.getElementById('modal');
+        const modalContent = document.querySelector('.modal-content');
+        
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal || e.target.classList.contains('close-modal')) {
+                    closeModal();
+                }
+            });
+        }
+        
+        if (modalContent) {
+            modalContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+        
+        // Закрытие по ESC
+        document.addEventListener('keydown', function(e) {
+            const modalEl = document.getElementById('modal');
+            if (modalEl && modalEl.style.display === 'block' && e.key === 'Escape') {
+                closeModal();
+            }
+        });
     });
-}
-
-function openModal(index) {
-    currentIndex = index;
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    
-    modal.style.display = 'block';
-    modalImg.src = photos[currentIndex];
-    
-    modalImg.onerror = function() {
-        this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
-    };
-    
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-function navigate(direction) {
-    let newIndex = currentIndex + direction;
-    if (newIndex < 0) newIndex = photos.length - 1;
-    if (newIndex >= photos.length) newIndex = 0;
-    
-    currentIndex = newIndex;
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = photos[currentIndex];
-    
-    modalImg.onerror = function() {
-        this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
-    };
-}
-
-// Закрытие по клику на фон (но не на фото и не на стрелки)
-const modal = document.getElementById('modal');
-const modalContent = document.querySelector('.modal-content');
-
-modal.addEventListener('click', function(e) {
-    // Если клик был непосредственно по modal (тёмному фону) или по крестику
-    if (e.target === modal || e.target.classList.contains('close-modal')) {
-        closeModal();
-    }
-});
-
-// Чтобы клик по фото или стрелкам не закрывал окно
-modalContent.addEventListener('click', function(e) {
-    e.stopPropagation();
-});
-
-// Закрытие по ESC
-document.addEventListener('keydown', function(e) {
-    if (modal.style.display === 'block' && e.key === 'Escape') {
-        closeModal();
-    }
-});
-
-renderGallery();
+</script>
