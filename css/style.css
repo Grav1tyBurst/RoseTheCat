@@ -302,3 +302,12 @@ body::before {
     background-size: 1px 1px;
     pointer-events: none;
 }
+.footer-signature {
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #F3F3F3;
+}
