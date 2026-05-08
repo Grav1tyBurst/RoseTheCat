@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Друзья Розы — Гостевая книга</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Дополнительные стили для гостевой книги */
+        .guestbook-section {
+            background: #F3F3F3;
+            padding: 1.5rem 2rem;
+        }
+
+        .form-area {
+            background: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 1rem;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: 0.2s;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #545B64;
+            box-shadow: 0 0 0 3px rgba(84, 91, 100, 0.1);
+        }
+
+        .submit-btn {
+            background: #545B64;
+            color: #FCF1F2;
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(145deg, #b0b0b0, #8a8a8a);
+            color: #2c2c2c;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Журнал записей */
+        .entries-log {
+            background: #FFFFFF;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            min-height: 300px;
+        }
+
+        .entry-item {
+            background: #F9F9F9;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #545B64;
+            transition: 0.2s;
+        }
+
+        .entry-item:hover {
+            transform: translateX(5px);
+            background: #F5F5F5;
+        }
+
+        .entry-header {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: #888;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 0.3rem;
+        }
+
+        .entry-date {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .entry-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #545B64;
+        }
+
+        .entry-message {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            color: #2c2c2c;
+            line-height: 1.5;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .empty-log {
+            text-align: center;
+            color: #888;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        .paw-divider-custom {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 0;
+            background: #F3F3F3;
+        }
+
+        @media (max-width: 768px) {
+            .guestbook-section {
+                padding: 1rem;
+            }
+            .form-area, .entries-log {
+                padding: 1rem;
+            }
+            .entry-header {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Шапка с возвратом на главную -->
+    <div class="back-header">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> 
+            Вернуться к Розе
+        </a>
+    </div>
+
+    <!-- Заголовок страницы -->
+    <div class="page-header">
+        <h1 class="page-title">Друзья Розы</h1>
+        <div class="page-subtitle">Если ты злой — уходи. Остальные могут написать что-нибудь приятное.</div>
+    </div>
+
+    <!-- Разделитель из лапок -->
+    <div class="paw-divider-custom">
+        <i class="fas fa-paw paw-icon"></i>
+        <i class="fas fa-paw paw-icon"></i>
+        <i class="fas fa-paw paw-icon"></i>
+        <i class="fas fa-paw paw-icon"></i>
+        <i class="fas fa-paw paw-icon"></i>
+    </div>
+
+    <!-- Основной блок гостевой книги -->
+    <div class="guestbook-section">
+        <!-- Форма добавления записи -->
+        <div class="form-area">
+            <div class="form-group">
+                <label for="guestName">🐾 Ваше имя:</label>
+                <input type="text" id="guestName" placeholder="Например: Друг Розы" maxlength="50">
+            </div>
+            <div class="form-group">
+                <label for="guestMessage">📝 Ваши добрые слова:</label>
+                <textarea id="guestMessage" rows="3" placeholder="Напишите что-нибудь приятное для Розы..." maxlength="500"></textarea>
+            </div>
+            <button class="submit-btn" id="submitEntry">
+                <i class="fas fa-paw"></i> Мяукнуть!
+            </button>
+        </div>
+
+        <!-- Разделитель -->
+        <div class="paw-divider-custom">
+            <i class="fas fa-paw paw-icon"></i>
+            <i class="fas fa-paw paw-icon"></i>
+            <i class="fas fa-paw paw-icon"></i>
+            <i class="fas fa-paw paw-icon"></i>
+            <i class="fas fa-paw paw-icon"></i>
+        </div>
+
+        <!-- Журнал записей -->
+        <div class="entries-log" id="entriesLog">
+            <div class="empty-log">🐾 Пока никто не мяукнул... Будь первым! 🐾</div>
+        </div>
+    </div>
+
+    <!-- Подвал -->
+    <div class="footer-signature">
+        2026 Роза и ИИ
+    </div>
+</div>
+
+<script>
+    // Ключ для хранения записей в localStorage
+    const STORAGE_KEY = 'roza_guestbook_entries';
+
+    // Функция для получения текущей даты в формате ДД.ММ.ГГГГ ЧЧ:ММ
+    function getCurrentDate() {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        return `${day}.${month}.${year} ${hours}:${minutes}`;
+    }
+
+    // Загрузка записей из localStorage
+    function loadEntries() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            return JSON.parse(stored);
+        }
+        return [];
+    }
+
+    // Сохранение записей в localStorage
+    function saveEntries(entries) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    // Отображение записей на странице
+    function renderEntries() {
+        const entries = loadEntries();
+        const logContainer = document.getElementById('entriesLog');
+        
+        if (!logContainer) return;
+        
+        if (entries.length === 0) {
+            logContainer.innerHTML = '<div class="empty-log">🐾 Пока никто не мяукнул... Будь первым! 🐾</div>';
+            return;
+        }
+        
+        // Сортируем от новых к старым
+        const sorted = [...entries].reverse();
+        
+        logContainer.innerHTML = '';
+        sorted.forEach(entry => {
+            const entryDiv = document.createElement('div');
+            entryDiv.className = 'entry-item';
+            
+            entryDiv.innerHTML = `
+                <div class="entry-header">
+                    <span class="entry-date"><i class="far fa-calendar-alt"></i> ${entry.date}</span>
+                    <span class="entry-name"><i class="fas fa-user"></i> ${escapeHtml(entry.name)}</span>
+                </div>
+                <div class="entry-message">
+                    ${escapeHtml(entry.message)}
+                </div>
+            `;
+            
+            logContainer.appendChild(entryDiv);
+        });
+    }
+    
+    // Простая защита от XSS (экранирование HTML)
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Добавление новой записи
+    function addEntry(name, message) {
+        if (!name.trim()) {
+            showNotification('🐾 Напиши своё имя, чтобы Роза знала, кто её хвалит!');
+            return false;
+        }
+        
+        if (!message.trim()) {
+            showNotification('📝 Не забудь написать добрые слова!');
+            return false;
+        }
+        
+        if (name.length > 50) {
+            showNotification('Имя слишком длинное (максимум 50 символов)');
+            return false;
+        }
+        
+        if (message.length > 500) {
+            showNotification('Сообщение слишком длинное (максимум 500 символов)');
+            return false;
+        }
+        
+        const entries = loadEntries();
+        const newEntry = {
+            id: Date.now(),
+            name: name.trim(),
+            message: message.trim(),
+            date: getCurrentDate()
+        };
+        
+        entries.push(newEntry);
+        saveEntries(entries);
+        renderEntries();
+        
+        // Очищаем поля
+        document.getElementById('guestName').value = '';
+        document.getElementById('guestMessage').value = '';
+        
+        showNotification('Мяу! Спасибо, твои добрые слова сохранены 🐾');
+        return true;
+    }
+
+    // Инициализация обработчиков
+    function initGuestbook() {
+        renderEntries();
+        
+        const submitBtn = document.getElementById('submitEntry');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                const name = document.getElementById('guestName').value;
+                const message = document.getElementById('guestMessage').value;
+                addEntry(name, message);
+            });
+        }
+        
+        // Отправка по Enter в текстовом поле (но не в textarea)
+        const nameInput = document.getElementById('guestName');
+        if (nameInput) {
+            nameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    document.getElementById('submitEntry').click();
+                }
+            });
+        }
+    }
+    
+    // Запускаем инициализацию после загрузки страницы
+    document.addEventListener('DOMContentLoaded', initGuestbook);
+</script>
+
+</body>
+</html>

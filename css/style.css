@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #F3F3F3;
+    color: #1a1a1a;
+    line-height: 1.6;
+    padding: 0;
+}
+
+/* Только для ПК: курсор-лапка */
+@media (hover: hover) and (pointer: fine) {
+    /* Обычный курсор */
+    body {
+        cursor: url('../cursors/cursor.png') 12 5, auto;
+    }
+    
+    /* Курсор при зажатой кнопке мыши (клик) */
+    body:active {
+        cursor: url('../cursors/cursor_pushed.png') 12 5, auto;
+    }
+    
+    /* Курсор при наведении на кликабельные элементы (ссылки, кнопки, фото) */
+    a:hover,
+    button:hover,
+    .contact-btn:hover,
+    .gallery-item:hover,
+    .features-img:hover,
+    .closing-img:hover,
+    .photo-card:hover,
+    .back-link:hover,
+    [onclick]:hover {
+        cursor: url('../cursors/cursor_active.png') 12 5, auto;
+    }
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: transparent;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+/* Шапка с возвратом на главную */
+.back-header {
+    padding: 1rem 2rem;
+    background: #4A4A4A;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FCF1F2;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    transition: 0.2s;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    background: rgba(255,255,255,0.1);
+}
+
+.back-link:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-3px);
+}
+
+.back-link:active {
+    transform: scale(0.97);
+}
+
+/* Заголовки страниц */
+.page-header {
+    text-align: center;
+    padding: 2rem 2rem 1rem 2rem;
+    background: #F3F3F3;
+}
+
+.page-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c2c2c;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.7rem;
+    color: #888;
+    letter-spacing: 0.5px;
+}
+
+/* Кнопки контактов */
+.contact-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin: 1rem 0 1rem 0;
+}
+
+.contact-btn {
+    background: #545B64;
+    color: #FCF1F2;
+    padding: 0.8rem 1.6rem;
+    border-radius: 60px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.25s ease;
+    font-family: 'Nunito', sans-serif;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.contact-btn:hover {
+    background: linear-gradient(145deg, #b0b0b0, #8a8a8a);
+    color: #2c2c2c;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+}
+
+.contact-btn:active {
+    transform: scale(0.97);
+    transition: 0.05s;
+}
+
+/* Модальное окно (общее для всех страниц) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.95);
+    cursor: pointer;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+}
+
+.modal-img {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #FCF1F2;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 2001;
+}
+
+.close-modal:hover {
+    color: #ccc;
+    transform: scale(1.1);
+}
+
+/* Уведомления (старый стиль с кнопкой — для главной страницы) */
+#custom-notification {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #545B64;
+    color: #FCF1F2;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 1000;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
+    max-width: 300px;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+/* Адаптация уведомлений для телефонов */
+@media (max-width: 600px) {
+    #custom-notification {
+        width: 90%;
+        max-width: 320px;
+        max-height: 80vh;
+        padding: 1.2rem;
+        display: flex;
+        flex-direction: column;
+    }
+    #notification-message {
+        overflow-y: auto;
+        max-height: 55vh;
+        padding-right: 0.3rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+    #custom-notification button {
+        margin-top: 0.5rem;
+        flex-shrink: 0;
+    }
+    .close-modal {
+        top: 10px;
+        right: 20px;
+        font-size: 30px;
+    }
+}
+
+/* Адаптивность для модального окна на телефонах */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1rem;
+    }
+    .modal-img {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+}

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Фотогалерея — Роза</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .gallery-main {
+            background: #4A4A4A;
+            border-radius: 1.5rem;
+            margin: 1rem 2rem 2rem 2rem;
+            padding: 2rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .photo-card {
+            background: #F3F3F3;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .photo-card:active {
+            transform: scale(0.98);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .photo-card:hover img {
+            filter: brightness(1.05);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            cursor: pointer;
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .modal-img {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #FCF1F2;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 2001;
+        }
+
+        .close-modal:hover {
+            color: #ccc;
+            transform: scale(1.1);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: #FCF1F2;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-main {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            .photo-grid {
+                gap: 1rem;
+            }
+            .photo-card img {
+                height: 180px;
+            }
+            .nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            .prev-btn {
+                left: 10px;
+            }
+            .next-btn {
+                right: 10px;
+            }
+            .close-modal {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="back-header">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> 
+            Вернуться к Розе
+        </a>
+    </div>
+
+    <div class="page-header">
+        <h1 class="page-title">Все любят фотокарточки с котами</h1>
+        <div class="page-subtitle">А если нет, то это их проблемы.</div>
+    </div>
+
+    <div class="gallery-main">
+        <div class="photo-grid" id="photoGrid">
+            <!-- Фото будут добавлены через JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно -->
+<div id="modal" class="modal" onclick="closeModal()">
+    <span class="close-modal" onclick="event.stopPropagation(); closeModal()">&times;</span>
+    <div class="nav-btn prev-btn" onclick="event.stopPropagation(); navigate(-1)">&#10094;</div>
+    <div class="nav-btn next-btn" onclick="event.stopPropagation(); navigate(1)">&#10095;</div>
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <img class="modal-img" id="modalImg" src="" alt="">
+    </div>
+</div>
+
+<script>
+    // Список фотографий (пути к папке images)
+    const photos = [
+        "images/lies2.jpg",
+        "images/on_chair.jpg",
+        "images/on_couch.jpg",
+        "images/on_shelf.jpg",
+        "images/outdoors.jpg",
+        "images/paws_up.jpg",
+        "images/stays.jpg",
+        "images/with_mars.jpg"
+    ];
+
+    let currentIndex = 0;
+
+    function renderGallery() {
+        const grid = document.getElementById('photoGrid');
+        grid.innerHTML = '';
+        
+        photos.forEach((photo, index) => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.onclick = () => openModal(index);
+            
+            const img = document.createElement('img');
+            img.src = photo;
+            img.alt = 'Фото Розы';
+            img.onerror = function() {
+                this.src = 'https://placehold.co/400x300?text=Фото+не+найдено';
+                this.style.objectFit = 'contain';
+            };
+            
+            card.appendChild(img);
+            grid.appendChild(card);
+        });
+    }
+
+    function openModal(index) {
+        currentIndex = index;
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImg');
+        
+        modal.style.display = 'block';
+        modalImg.src = photos[currentIndex];
+        
+        modalImg.onerror = function() {
+            this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
+        };
+        
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    function navigate(direction) {
+        let newIndex = currentIndex + direction;
+        if (newIndex < 0) newIndex = photos.length - 1;
+        if (newIndex >= photos.length) newIndex = 0;
+        
+        currentIndex = newIndex;
+        const modalImg = document.getElementById('modalImg');
+        modalImg.src = photos[currentIndex];
+        
+        modalImg.onerror = function() {
+            this.src = 'https://placehold.co/800x600?text=Фото+не+найдено';
+        };
+    }
+
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('modal');
+        if (modal.style.display === 'block') {
+            if (e.key === 'ArrowLeft') {
+                navigate(-1);
+            } else if (e.key === 'ArrowRight') {
+                navigate(1);
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+    });
+
+    renderGallery();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Погладь кошку — Роза</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .pet-section {
+            background: #F3F3F3;
+            padding: 2rem;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pet-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin-bottom: 2rem;
+        }
+
+        .paw-btn {
+            background: linear-gradient(145deg, #545B64, #3d434a);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .paw-btn i {
+            font-size: 6rem;
+            color: #FCF1F2;
+        }
+
+        .paw-btn span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FCF1F2;
+        }
+
+        .paw-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #6a7480, #4a525c);
+        }
+
+        .paw-btn:active {
+            transform: scale(0.97);
+            transition: 0.05s;
+        }
+
+        .counter-wrapper {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: #545B64;
+            padding: 0.8rem 1.5rem;
+            border-radius: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+
+        .counter-wrapper i {
+            font-size: 1.5rem;
+            color: #FCF1F2;
+        }
+
+        .counter-label {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            color: #FCF1F2;
+            font-size: 0.9rem;
+        }
+
+        .counter-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FCF1F2;
+            line-height: 1;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .reset-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #FCF1F2;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Баннер-уведомление (тост) — ПОЛУПРОЗРАЧНЫЙ */
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(84, 91, 100, 0.85);
+            backdrop-filter: blur(8px);
+            color: #FCF1F2;
+            padding: 0.8rem 1.5rem;
+            border-radius: 3rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            z-index: 2000;
+            text-align: center;
+            white-space: nowrap;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease-out;
+            pointer-events: none;
+        }
+
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @keyframes pawPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .paw-btn:active i {
+            animation: pawPulse 0.15s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .pet-title {
+                font-size: 1.8rem;
+            }
+            .paw-btn {
+                width: 200px;
+                height: 200px;
+            }
+            .paw-btn i {
+                font-size: 4rem;
+            }
+            .paw-btn span {
+                font-size: 1.2rem;
+            }
+            .counter-wrapper {
+                bottom: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            .counter-value {
+                font-size: 1.4rem;
+                min-width: 45px;
+            }
+            .counter-label {
+                font-size: 0.75rem;
+            }
+            .toast-notification {
+                font-size: 0.85rem;
+                padding: 0.6rem 1.2rem;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .toast-notification {
+                white-space: normal;
+                max-width: 85%;
+                text-align: center;
+                line-height: 1.4;
+                border-radius: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="back-header">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> 
+            Вернуться к Розе
+        </a>
+    </div>
+
+    <div class="pet-section">
+        <h1 class="pet-title">Погладь кошку. Аккуратно.</h1>
+        
+        <button class="paw-btn" id="petButton">
+            <i class="fas fa-paw"></i>
+            <span>Погладил!</span>
+        </button>
+        
+        <p style="color: #888; font-size: 0.85rem;">* нажми на лапку, чтобы погладить Розу</p>
+    </div>
+
+    <div class="counter-wrapper">
+        <i class="fas fa-heart"></i>
+        <span class="counter-label">поглаживаний:</span>
+        <span class="counter-value" id="petCounter">0</span>
+        <button class="reset-btn" id="resetCounter" title="Сбросить счётчик">
+            <i class="fas fa-undo-alt"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    const STORAGE_KEY = 'roza_pet_counter';
+    
+    let petCount = localStorage.getItem(STORAGE_KEY);
+    if (petCount === null) {
+        petCount = 0;
+    } else {
+        petCount = parseInt(petCount);
+    }
+    
+    const counterElement = document.getElementById('petCounter');
+    const petButton = document.getElementById('petButton');
+    const resetButton = document.getElementById('resetCounter');
+    
+    function updateCounterDisplay() {
+        counterElement.textContent = petCount;
+        localStorage.setItem(STORAGE_KEY, petCount);
+    }
+    
+    function showToast(message) {
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 200);
+        }, 1000);
+    }
+    
+    function addPet() {
+        petCount++;
+        updateCounterDisplay();
+        
+        if (petCount === 1) {
+            showToast('Мур!');
+        } else if (petCount === 5) {
+            showToast('Пять поглаживаний - это уже неплохо');
+        } else if (petCount === 10) {
+            showToast('10 раз! Я начинаю привыкать к этому');
+        } else if (petCount === 20) {
+            showToast('20! Давай ещё');
+        } else if (petCount === 50) {
+            showToast('Да, мне это тоже приятно (:');
+        } else if (petCount % 10 === 0) {
+            showToast(`Уже ${petCount} раз! Мур-мур 🐾`);
+        } else {
+            const messages = [
+                'Муррр ',
+                'Ещё! Ещё! 🐾',
+                'Приятно, когда гладят ^^',
+                'Продолжай.',
+                'Спасибо, друг! ',
+                '*мурлычет*',
+                '🐾',
+                'Не забудь помыть руки потом'
+            ];
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            showToast(messages[randomIndex]);
+        }
+    }
+    
+    function resetCounter() {
+        if (confirm('Точно сбросить все поглаживания? Роза будет грустить 😿')) {
+            petCount = 0;
+            updateCounterDisplay();
+            showToast('Счётчик сброшен... Познакомимся заново?');
+        }
+    }
+    
+    petButton.addEventListener('click', addPet);
+    resetButton.addEventListener('click', resetCounter);
+    updateCounterDisplay();
+    
+    console.log('Роза готова к поглаживаниям! 🐱');
+</script>
+
+</body>
+</html>
