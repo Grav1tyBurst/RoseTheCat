@@ -1,3 +1,54 @@
+/* Липкая шапка с навигацией */
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #4A4A4A;
+    backdrop-filter: blur(10px);
+    background: rgba(74, 74, 74, 0.95);
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: #FCF1F2;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.nav-link:active {
+    transform: translateY(0);
+}
+
+/* Плавный скролл */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Отступ для якорей (чтобы шапка не перекрывала секцию) */
+section {
+    scroll-margin-top: 80px;
+}
 * {
     margin: 0;
     padding: 0;
