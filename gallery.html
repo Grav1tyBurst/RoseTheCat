@@ -163,6 +163,20 @@
 </head>
 <body>
 
+.photo-card {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.photo-card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+}
+
+.photo-card:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 <div class="container">
     <div class="back-header">
         <a href="index.html" class="back-link">
