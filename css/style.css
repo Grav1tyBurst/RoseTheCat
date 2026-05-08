@@ -311,3 +311,39 @@ body::before {
     padding: 1rem;
     background: #F3F3F3;
 }
+/* Тени под интерактивными элементами */
+button,
+.contact-btn,
+.submit-btn,
+.paw-btn,
+.back-link,
+.gallery-item img,
+.features-img,
+.closing-img,
+.photo-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* При наведении/касании тень усиливается */
+button:hover,
+.contact-btn:hover,
+.submit-btn:hover,
+.paw-btn:hover,
+.back-link:hover,
+.gallery-item:hover img,
+.features-img:hover,
+.closing-img:hover,
+.photo-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Активное состояние (нажатие) */
+button:active,
+.contact-btn:active,
+.submit-btn:active,
+.paw-btn:active,
+.back-link:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+}
