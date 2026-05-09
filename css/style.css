@@ -415,9 +415,26 @@ button:active,
     transform: translateX(40px);
 }
 
-/* Выезжает снизу */
-.fade-bottom {
-    transform: translateY(40px);
+/* Анимация появления блоков при скролле — слева и справа */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+/* Выезжает слева */
+.fade-left {
+    transform: translateX(-40px);
+}
+
+/* Выезжает справа */
+.fade-right {
+    transform: translateX(40px);
+}
+
+/* Видимое состояние — возврат на место */
+.fade-in.visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
 }
 
 /* Видимое состояние — возврат на место */
