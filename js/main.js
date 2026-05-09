@@ -64,3 +64,41 @@ document.addEventListener('click', function(e) {
 });
 
 console.log('main.js загружен — сайт Розы готов к работе! 🐾');
+
+// Анимация появления блоков при скролле
+const fadeElements = document.querySelectorAll('.section, .hero, .gallery-main, .page-header, .guestbook-section, .form-area, .entries-log, .counter-wrapper');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+fadeElements.forEach(el => {
+    el.classList.add('fade-in');
+    observer.observe(el);
+});
+
+// Кнопка "Наверх"
+const goTopBtn = document.createElement('button');
+goTopBtn.className = 'go-top';
+goTopBtn.innerHTML = '⬆️';
+goTopBtn.setAttribute('aria-label', 'Наверх');
+document.body.appendChild(goTopBtn);
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+        goTopBtn.classList.add('show');
+    } else {
+        goTopBtn.classList.remove('show');
+    }
+});
+
+goTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
