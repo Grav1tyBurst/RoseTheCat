@@ -38,6 +38,74 @@ function closeModal(modalId = 'imageModal') {
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
+
+        // ... ваш существующий код ...
+
+// Кнопка "Наверх"
+const goTopBtn = document.createElement('button');
+goTopBtn.className = 'go-top';
+goTopBtn.innerHTML = 'Вверх';
+goTopBtn.setAttribute('aria-label', 'Наверх');
+document.body.appendChild(goTopBtn);
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+        goTopBtn.classList.add('show');
+    } else {
+        goTopBtn.classList.remove('show');
+    }
+});
+
+goTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Выезжающие иконки (лапки)
+const leftPaw = document.createElement('div');
+leftPaw.className = 'cat-slide left';
+leftPaw.innerHTML = '🐾';
+leftPaw.style.fontSize = '4rem';
+leftPaw.style.opacity = '0.25';
+document.body.appendChild(leftPaw);
+
+const rightPaw = document.createElement('div');
+rightPaw.className = 'cat-slide right';
+rightPaw.innerHTML = '🐾';
+rightPaw.style.fontSize = '4rem';
+rightPaw.style.opacity = '0.25';
+document.body.appendChild(rightPaw);
+
+let ticking = false;
+
+window.addEventListener('scroll', function() {
+    if (!ticking) {
+        requestAnimationFrame(function() {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            let leftOffset = 0;
+            if (scrollPercent <= 0.4) {
+                leftOffset = (scrollPercent / 0.4) * 100;
+                leftOffset = Math.min(Math.max(leftOffset, 0), 100);
+            } else {
+                leftOffset = 100;
+            }
+            leftPaw.style.transform = `translateX(${-100 + leftOffset}%)`;
+            
+            let rightOffset = 0;
+            if (scrollPercent > 0.3) {
+                rightOffset = ((scrollPercent - 0.3) / 0.7) * 100;
+                rightOffset = Math.min(Math.max(rightOffset, 0), 100);
+            }
+            rightPaw.style.transform = `translateX(${100 - rightOffset}%)`;
+            
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
     }
 }
 
