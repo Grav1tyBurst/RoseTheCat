@@ -101,10 +101,10 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 fadeElements.forEach((el, index) => {
-    // Определяем направление для каждого блока
-    const direction = getDirection(index);
-    el.classList.add('fade-in', `fade-${direction}`);
-    observer.observe(el);
+// Функция для определения направления анимации (слева — чётные, справа — нечётные)
+function getDirection(index) {
+    return index % 2 === 0 ? 'left' : 'right';
+}
 });
 
 // ========== КНОПКА "НАВЕРХ" ==========
