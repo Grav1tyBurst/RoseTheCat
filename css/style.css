@@ -443,3 +443,13 @@ button:active, .contact-btn:active, .submit-btn:active, .paw-btn:active,
         flex-shrink: 0 !important;
     }
 }
+
+/* Плавное закрытие при свайпе */
+.modal-img {
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.modal-img.swiping {
+    transform: translateY(30px);
+    opacity: 0.5;
+}
