@@ -199,53 +199,11 @@ setTimeout(() => {
     }
 }, 100);
 
-// ========== ЗАКРЫТИЕ ФОТО СВАЙПОМ ВНИЗ НА ТЕЛЕФОНЕ ==========
-function addSwipeToClose(modalId, imgId, closeFunction) {
-    const modal = document.getElementById(modalId);
-    const modalImg = document.getElementById(imgId);
-    
-    if (!modal || !modalImg) return;
-    
-    let touchStartY = 0;
-    let touchStartX = 0;
-    let isSwiping = false;
-    
-    modalImg.addEventListener('touchstart', function(e) {
-        touchStartY = e.touches[0].clientY;
-        touchStartX = e.touches[0].clientX;
-        isSwiping = true;
-    }, { passive: true });
-    
-    modalImg.addEventListener('touchmove', function(e) {
-        if (!isSwiping) return;
-        
-        const currentY = e.touches[0].clientY;
-        const deltaY = currentY - touchStartY;
-        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
-        
-        // Если движение вниз и не горизонтальное (не переключение фото)
-        if (deltaY > 50 && deltaX < 50) {
-            e.preventDefault();
-            closeFunction();
-            isSwiping = false;
-        }
-    });
-    
-    modalImg.addEventListener('touchend', function() {
-        isSwiping = false;
-    });
-}
+// ========== ЗАКРЫТИЕ ФОТО (ТЕЛЕФОН — СВАЙП, ПК — КЛИК) ==========
+// Обратите внимание: closeImageModal и closeModal должны быть определены в HTML-файлах локально
 
-// Навешиваем свайп на модальные окна
-if (window.innerWidth <= 768) {
-    setTimeout(() => {
-        addSwipeToClose('imageModal', 'imageModalImg', closeImageModal);
-        addSwipeToClose('modal', 'modalImg', closeModal);
-    }, 100);
-}
-
-// ========== ЗАКРЫТИЕ ФОТО СВАЙПОМ ВНИЗ НА ТЕЛЕФОНЕ ==========
-if ('ontouchstart' in window) {  // только для устройств с касанием
+// Для телефонов — свайп вниз
+if ('ontouchstart' in window) {
     function addSwipeToClose(modalId, imgId, closeFunction) {
         const modal = document.getElementById(modalId);
         const modalImg = document.getElementById(imgId);
@@ -269,10 +227,9 @@ if ('ontouchstart' in window) {  // только для устройств с к
             const deltaY = currentY - touchStartY;
             const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
             
-            // Если свайп вниз и не горизонтальный
             if (deltaY > 50 && deltaX < 50) {
                 e.preventDefault();
-                closeFunction();
+                if (typeof closeFunction === 'function') closeFunction();
                 isSwiping = false;
             }
         });
@@ -282,7 +239,6 @@ if ('ontouchstart' in window) {  // только для устройств с к
         });
     }
     
-    // Добавляем свайп после загрузки страницы
     setTimeout(() => {
         addSwipeToClose('imageModal', 'imageModalImg', function() {
             if (typeof closeImageModal === 'function') closeImageModal();
@@ -291,41 +247,45 @@ if ('ontouchstart' in window) {  // только для устройств с к
             if (typeof closeModal === 'function') closeModal();
         });
     }, 100);
-}
-
-// ========== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА НА ПК ПО КЛИКУ ВНЕ ФОТО ==========
-function addCloseOnClickOutside(modalId, modalImgId, closeFunction) {
-    const modal = document.getElementById(modalId);
-    const modalImg = document.getElementById(modalImgId);
-    
-    if (!modal) return;
-    
-    modal.addEventListener('click', function(e) {
-        // Если кликнули по фону (самому modal)
-        if (e.target === modal) {
-            closeFunction();
-        }
-    });
-    
-    // Чтобы клик по фото не закрывал окно (если хотите закрывать — уберите этот блок)
-    if (modalImg) {
-        modalImg.addEventListener('click', function(e) {
-            e.stopPropagation();
-            // Если хотите закрывать и по фото — раскомментируйте следующую строку:
-            // closeFunction();
-        });
-    }
-}
-
-// Добавляем для ПК (где нет касаний)
-if (!('ontouchstart' in window)) {
+} 
+// Для ПК — клик по фону и по фото (закрытие в любом месте)
+else {
     setTimeout(() => {
-        addCloseOnClickOutside('imageModal', 'imageModalImg', function() {
-            if (typeof closeImageModal === 'function') closeImageModal();
-        });
-        addCloseOnClickOutside('modal', 'modalImg', function() {
-            if (typeof closeModal === 'function') closeModal();
-        });
+        // Закрытие по клику на фон для imageModal
+        const imageModal = document.getElementById('imageModal');
+        if (imageModal) {
+            imageModal.addEventListener('click', function(e) {
+                if (e.target === imageModal && typeof closeImageModal === 'function') {
+                    closeImageModal();
+                }
+            });
+        }
+        
+        // Закрытие по клику на фото для imageModal
+        const imageModalImg = document.getElementById('imageModalImg');
+        if (imageModalImg) {
+            imageModalImg.addEventListener('click', function() {
+                if (typeof closeImageModal === 'function') closeImageModal();
+            });
+        }
+        
+        // Закрытие по клику на фон для modal (галерея)
+        const modal = document.getElementById('modal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal && typeof closeModal === 'function') {
+                    closeModal();
+                }
+            });
+        }
+        
+        // Закрытие по клику на фото для modal (галерея)
+        const modalImg = document.getElementById('modalImg');
+        if (modalImg) {
+            modalImg.addEventListener('click', function() {
+                if (typeof closeModal === 'function') closeModal();
+            });
+        }
     }, 100);
 }
 
