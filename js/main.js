@@ -78,33 +78,28 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ========== АНИМАЦИЯ БЛОКОВ ПРИ СКРОЛЛЕ (выезжают с разных сторон) ==========
+// ========== АНИМАЦИЯ БЛОКОВ ПРИ СКРОЛЛЕ (выезжают слева и справа) ==========
 const fadeElements = document.querySelectorAll('.section, .hero, .gallery-main, .page-header, .guestbook-section, .form-area, .entries-log, .counter-wrapper, .paw-divider, .features-block, .closing-block, .footer-signature');
 
-// Функция для определения направления анимации
+// Функция для определения направления (слева — чётные, справа — нечётные)
 function getDirection(index) {
-    const directions = ['left', 'right', 'bottom'];
-    return directions[index % 3];
+    return index % 2 === 0 ? 'left' : 'right';
 }
 
-// Добавляем анимационные классы и запускаем наблюдатель
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Блок появляется — добавляем класс visible (выезжает)
             entry.target.classList.add('visible');
         } else {
-            // Блок уходит из зоны видимости — убираем класс (прячется обратно)
             entry.target.classList.remove('visible');
         }
     });
 }, { threshold: 0.15 });
 
 fadeElements.forEach((el, index) => {
-// Функция для определения направления анимации (слева — чётные, справа — нечётные)
-function getDirection(index) {
-    return index % 2 === 0 ? 'left' : 'right';
-}
+    const direction = getDirection(index);
+    el.classList.add('fade-in', `fade-${direction}`);
+    observer.observe(el);
 });
 
 // ========== КНОПКА "НАВЕРХ" ==========
@@ -173,8 +168,6 @@ window.addEventListener('scroll', function() {
     }
 });
 
-console.log('main.js загружен — сайт Розы готов к работе! 🐾');
-
 // ========== КАРУСЕЛЬ ФАКТОВ ==========
 setTimeout(() => {
     const factCards = document.querySelectorAll('.fact-card');
@@ -215,7 +208,6 @@ setTimeout(() => {
         dot.addEventListener('click', () => showFact(index));
     });
 
-    // Свайпы на телефоне
     const carousel = document.querySelector('.facts-carousel');
     if (carousel) {
         let touchStartX = 0;
@@ -232,3 +224,5 @@ setTimeout(() => {
         });
     }
 }, 100);
+
+console.log('main.js загружен — сайт Розы готов к работе! 🐾');
