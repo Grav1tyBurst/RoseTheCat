@@ -511,23 +511,52 @@
     </div>
 
     <div class="section" id="features">
-        <div class="section-title">✨ Мои особенности</div>
-        <div class="text-content">
-            <div class="features-block">
-                <img class="features-img" src="images/looks_up.jpg" alt="Роза смотрит вверх" data-img="images/looks_up.jpg">
-                <div class="features-text">
-                    <p>У всех есть свои особенности, и я не исключение. Некоторые из них я уже описала выше, но это, разумеется, не всё.</p>
-                    <ul class="features-list">
-                        <li>Например, иногда мне очень хочется, чтобы меня погладили. Я подхожу к кому-нибудь из своих соседей и начинаю тереться о них. И мурчать.</li>
-                        <li>У меня аллергия на курицу.</li>
-                        <li>Я очень быстро пачкаю шкурку. Согласитесь, не у каждой кошки есть такое солидное преимущество. Правда, моим соседям это почему-то не нравится, поэтому раз в 2-3 недели самец меня моет. Я не в восторге, но тут ничего не поделаешь.</li>
-                        <li>Время от времени у нас начинают жить другие кошки. Мы вежливо обмениваемся взглядами и ходим в один лоток, но в целом мне всё равно.</li>
-                        <li>Стыдно признаться, но я очень люблю, когда меня шлёпают по спинке над хвостом. Оооо, как же это приятно! Пожалуйста, никому не рассказывайте.</li>
-                    </ul>
+    <div class="section-title">✨ Мои особенности</div>
+    <div class="text-content">
+        <div class="features-block">
+            <img class="features-img" src="images/looks_up.jpg" alt="Роза смотрит вверх" data-img="images/looks_up.jpg">
+            <div class="features-text">
+                <p>У всех есть свои особенности, и я не исключение. Некоторые из них я уже описала выше, но это, разумеется, не всё.</p>
+                
+                <!-- Карусель фактов -->
+                <div class="facts-carousel">
+                    <div class="fact-card active" data-fact="0">
+                        <div class="fact-icon">🐾</div>
+                        <div class="fact-text">Например, иногда мне очень хочется, чтобы меня погладили. Я подхожу к кому-нибудь из своих соседей и начинаю тереться о них. И мурчать.</div>
+                    </div>
+                    <div class="fact-card" data-fact="1">
+                        <div class="fact-icon">🍗</div>
+                        <div class="fact-text">У меня аллергия на курицу.</div>
+                    </div>
+                    <div class="fact-card" data-fact="2">
+                        <div class="fact-icon">🧼</div>
+                        <div class="fact-text">Я очень быстро пачкаю шкурку. Согласитесь, не у каждой кошки есть такое солидное преимущество. Правда, моим соседям это почему-то не нравится, поэтому раз в 2-3 недели самец меня моет. Я не в восторге, но тут ничего не поделаешь.</div>
+                    </div>
+                    <div class="fact-card" data-fact="3">
+                        <div class="fact-icon">🐱</div>
+                        <div class="fact-text">Время от времени у нас начинают жить другие кошки. Мы вежливо обмениваемся взглядами и ходим в один лоток, но в целом мне всё равно.</div>
+                    </div>
+                    <div class="fact-card" data-fact="4">
+                        <div class="fact-icon">💨</div>
+                        <div class="fact-text">Стыдно признаться, но я очень люблю, когда меня шлёпают по спинке над хвостом. Оооо, как же это приятно! Пожалуйста, никому не рассказывайте.</div>
+                    </div>
+                    
+                    <div class="carousel-nav">
+                        <button class="carousel-prev" aria-label="Предыдущий факт">◀</button>
+                        <div class="carousel-dots">
+                            <span class="dot active" data-dot="0"></span>
+                            <span class="dot" data-dot="1"></span>
+                            <span class="dot" data-dot="2"></span>
+                            <span class="dot" data-dot="3"></span>
+                            <span class="dot" data-dot="4"></span>
+                        </div>
+                        <button class="carousel-next" aria-label="Следующий факт">▶</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
     <div class="paw-divider">
         <i class="fas fa-paw paw-icon"></i>
