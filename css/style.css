@@ -453,3 +453,11 @@ button:active, .contact-btn:active, .submit-btn:active, .paw-btn:active,
     transform: translateY(30px);
     opacity: 0.5;
 }
+
+/* Прячем плавающие элементы при открытых модалках и уведомлениях */
+.modal:not([style*="display: none"]) ~ .cat-slide,
+.modal:not([style*="display: none"]) ~ .go-top,
+#custom-notification:not([style*="display: none"]) ~ .cat-slide,
+#custom-notification:not([style*="display: none"]) ~ .go-top {
+    display: none !important;
+}
