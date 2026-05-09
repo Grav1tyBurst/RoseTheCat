@@ -509,3 +509,63 @@ button:active,
     font-size: 0.9rem;
     font-weight: 600;
 }
+
+/* Выезжающие лапки */
+.cat-slide {
+    position: fixed;
+    z-index: 999;
+    pointer-events: none;
+    transition: transform 0.4s ease-out;
+}
+
+.cat-slide.left {
+    left: 10px;
+    bottom: 15%;
+    transform: translateX(-100%);
+}
+
+.cat-slide.right {
+    right: 10px;
+    top: 25%;
+    transform: translateX(100%);
+}
+
+@media (max-width: 768px) {
+    .cat-slide.left {
+        bottom: 10%;
+    }
+    .cat-slide.right {
+        top: 20%;
+    }
+}
+
+/* Кнопка "Наверх" — убедитесь, что она не переопределена */
+.go-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #545B64;
+    color: #FCF1F2;
+    border: none;
+    border-radius: 40px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.go-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.go-top:hover {
+    background: #6a7480;
+    transform: scale(1.02);
+}
