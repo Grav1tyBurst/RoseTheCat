@@ -504,3 +504,8 @@ button:active,
         top: 20%;
     }
 }
+
+.go-top {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
