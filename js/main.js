@@ -244,4 +244,53 @@ if (window.innerWidth <= 768) {
     }, 100);
 }
 
+// ========== ЗАКРЫТИЕ ФОТО СВАЙПОМ ВНИЗ НА ТЕЛЕФОНЕ ==========
+if ('ontouchstart' in window) {  // только для устройств с касанием
+    function addSwipeToClose(modalId, imgId, closeFunction) {
+        const modal = document.getElementById(modalId);
+        const modalImg = document.getElementById(imgId);
+        
+        if (!modal || !modalImg) return;
+        
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isSwiping = false;
+        
+        modalImg.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+            touchStartX = e.touches[0].clientX;
+            isSwiping = true;
+        }, { passive: true });
+        
+        modalImg.addEventListener('touchmove', function(e) {
+            if (!isSwiping) return;
+            
+            const currentY = e.touches[0].clientY;
+            const deltaY = currentY - touchStartY;
+            const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+            
+            // Если свайп вниз и не горизонтальный
+            if (deltaY > 50 && deltaX < 50) {
+                e.preventDefault();
+                closeFunction();
+                isSwiping = false;
+            }
+        });
+        
+        modalImg.addEventListener('touchend', function() {
+            isSwiping = false;
+        });
+    }
+    
+    // Добавляем свайп после загрузки страницы
+    setTimeout(() => {
+        addSwipeToClose('imageModal', 'imageModalImg', function() {
+            if (typeof closeImageModal === 'function') closeImageModal();
+        });
+        addSwipeToClose('modal', 'modalImg', function() {
+            if (typeof closeModal === 'function') closeModal();
+        });
+    }, 100);
+}
+
 console.log('main.js загружен — сайт Розы готов к работе! 🐾');
