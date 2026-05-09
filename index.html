@@ -791,61 +791,63 @@
     });
 </script>
 
-    // Карусель фактов
-const factCards = document.querySelectorAll('.fact-card');
-const dots = document.querySelectorAll('.dot');
-const prevBtn = document.querySelector('.carousel-prev');
-const nextBtn = document.querySelector('.carousel-next');
+       // Карусель фактов
+    setTimeout(() => {
+        const factCards = document.querySelectorAll('.fact-card');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
 
-let currentFact = 0;
-const totalFacts = factCards.length;
+        if (factCards.length === 0) return;
 
-function showFact(index) {
-    // Скрываем все карточки
-    factCards.forEach(card => card.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    
-    // Показываем нужную
-    factCards[index].classList.add('active');
-    dots[index].classList.add('active');
-    currentFact = index;
-}
+        let currentFact = 0;
+        const totalFacts = factCards.length;
 
-function nextFact() {
-    let newIndex = currentFact + 1;
-    if (newIndex >= totalFacts) newIndex = 0;
-    showFact(newIndex);
-}
+        function showFact(index) {
+            factCards.forEach(card => card.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            factCards[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentFact = index;
+        }
 
-function prevFact() {
-    let newIndex = currentFact - 1;
-    if (newIndex < 0) newIndex = totalFacts - 1;
-    showFact(newIndex);
-}
+        function nextFact() {
+            let newIndex = currentFact + 1;
+            if (newIndex >= totalFacts) newIndex = 0;
+            showFact(newIndex);
+        }
 
-// Навешиваем обработчики
-if (prevBtn) prevBtn.addEventListener('click', prevFact);
-if (nextBtn) nextBtn.addEventListener('click', nextFact);
+        function prevFact() {
+            let newIndex = currentFact - 1;
+            if (newIndex < 0) newIndex = totalFacts - 1;
+            showFact(newIndex);
+        }
 
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => showFact(index));
-});
+        if (prevBtn) prevBtn.addEventListener('click', prevFact);
+        if (nextBtn) nextBtn.addEventListener('click', nextFact);
 
-// Для удобства можно добавить свайпы на телефоне
-let touchStartX = 0;
-let touchEndX = 0;
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showFact(index));
+        });
 
-const carousel = document.querySelector('.facts-carousel');
-if (carousel) {
-    carousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    carousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchEndX < touchStartX - 50) nextFact();
-        if (touchEndX > touchStartX + 50) prevFact();
-    });
-}
+        // Свайпы на телефоне
+        const carousel = document.querySelector('.facts-carousel');
+        if (carousel) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            carousel.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            carousel.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX < touchStartX - 50) nextFact();
+                if (touchEndX > touchStartX + 50) prevFact();
+            });
+        }
+    }, 100); // Небольшая задержка, чтобы DOM точно загрузился
+                
 </body>
 </html>
