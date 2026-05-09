@@ -719,8 +719,9 @@
 <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;" onclick="closeNotification()"></div>
 
 <script src="js/main.js"></script>
+<script src="js/carousel.js"></script>
 <script>
-    // Оживляем кнопки в липкой шапке
+    // Оживляем кнопки в липкой шапке (если не сработало из main.js)
     document.querySelectorAll('.nav-link[data-section]').forEach(link => {
         link.addEventListener('click', function(e) {
             const sectionId = this.getAttribute('data-section');
@@ -781,78 +782,6 @@
         if (e.key === 'Escape') {
             closeImageModal();
         }
-    });
-
-    // Карусель фактов
-    setTimeout(() => {
-        const factCards = document.querySelectorAll('.fact-card');
-        const dots = document.querySelectorAll('.dot');
-        const prevBtn = document.querySelector('.carousel-prev');
-        const nextBtn = document.querySelector('.carousel-next');
-
-        if (factCards.length === 0) return;
-
-        let currentFact = 0;
-        const totalFacts = factCards.length;
-
-        function showFact(index) {
-            factCards.forEach(card => card.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            factCards[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentFact = index;
-        }
-
-        function nextFact() {
-            let newIndex = currentFact + 1;
-            if (newIndex >= totalFacts) newIndex = 0;
-            showFact(newIndex);
-        }
-
-        function prevFact() {
-            let newIndex = currentFact - 1;
-            if (newIndex < 0) newIndex = totalFacts - 1;
-            showFact(newIndex);
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', prevFact);
-        if (nextBtn) nextBtn.addEventListener('click', nextFact);
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => showFact(index));
-        });
-
-        const carousel = document.querySelector('.facts-carousel');
-        if (carousel) {
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            carousel.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            carousel.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                if (touchEndX < touchStartX - 50) nextFact();
-                if (touchEndX > touchStartX + 50) prevFact();
-            });
-        }
-    }, 100);
-
-    // Выезжающие блоки при скролле
-    const fadeElements = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    fadeElements.forEach(el => {
-        observer.observe(el);
     });
 </script>
                 
