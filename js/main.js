@@ -199,4 +199,49 @@ setTimeout(() => {
     }
 }, 100);
 
+// ========== ЗАКРЫТИЕ ФОТО СВАЙПОМ ВНИЗ НА ТЕЛЕФОНЕ ==========
+function addSwipeToClose(modalId, imgId, closeFunction) {
+    const modal = document.getElementById(modalId);
+    const modalImg = document.getElementById(imgId);
+    
+    if (!modal || !modalImg) return;
+    
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let isSwiping = false;
+    
+    modalImg.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        isSwiping = true;
+    }, { passive: true });
+    
+    modalImg.addEventListener('touchmove', function(e) {
+        if (!isSwiping) return;
+        
+        const currentY = e.touches[0].clientY;
+        const deltaY = currentY - touchStartY;
+        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+        
+        // Если движение вниз и не горизонтальное (не переключение фото)
+        if (deltaY > 50 && deltaX < 50) {
+            e.preventDefault();
+            closeFunction();
+            isSwiping = false;
+        }
+    });
+    
+    modalImg.addEventListener('touchend', function() {
+        isSwiping = false;
+    });
+}
+
+// Навешиваем свайп на модальные окна
+if (window.innerWidth <= 768) {
+    setTimeout(() => {
+        addSwipeToClose('imageModal', 'imageModalImg', closeImageModal);
+        addSwipeToClose('modal', 'modalImg', closeModal);
+    }, 100);
+}
+
 console.log('main.js загружен — сайт Розы готов к работе! 🐾');
