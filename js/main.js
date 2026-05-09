@@ -293,4 +293,40 @@ if ('ontouchstart' in window) {  // только для устройств с к
     }, 100);
 }
 
+// ========== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА НА ПК ПО КЛИКУ ВНЕ ФОТО ==========
+function addCloseOnClickOutside(modalId, modalImgId, closeFunction) {
+    const modal = document.getElementById(modalId);
+    const modalImg = document.getElementById(modalImgId);
+    
+    if (!modal) return;
+    
+    modal.addEventListener('click', function(e) {
+        // Если кликнули по фону (самому modal)
+        if (e.target === modal) {
+            closeFunction();
+        }
+    });
+    
+    // Чтобы клик по фото не закрывал окно (если хотите закрывать — уберите этот блок)
+    if (modalImg) {
+        modalImg.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // Если хотите закрывать и по фото — раскомментируйте следующую строку:
+            // closeFunction();
+        });
+    }
+}
+
+// Добавляем для ПК (где нет касаний)
+if (!('ontouchstart' in window)) {
+    setTimeout(() => {
+        addCloseOnClickOutside('imageModal', 'imageModalImg', function() {
+            if (typeof closeImageModal === 'function') closeImageModal();
+        });
+        addCloseOnClickOutside('modal', 'modalImg', function() {
+            if (typeof closeModal === 'function') closeModal();
+        });
+    }, 100);
+}
+
 console.log('main.js загружен — сайт Розы готов к работе! 🐾');
