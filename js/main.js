@@ -21,6 +21,22 @@ function closeNotification() {
     if (overlay) overlay.style.display = 'none';
 }
 
+// ========== НАВИГАЦИЯ ПО КНОПКАМ В ШАПКЕ ==========
+document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const sectionId = this.getAttribute('data-section');
+        
+        if (sectionId === 'pet') {
+            window.location.href = 'pet.html';
+        } else {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    });
+});
+
 // Функция для открытия модального окна с фото
 function openModal(imgSrc, modalId = 'imageModal', imgId = 'modalImg') {
     const modal = document.getElementById(modalId);
