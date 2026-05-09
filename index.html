@@ -789,9 +789,8 @@
             closeImageModal();
         }
     });
-</script>
 
-       // Карусель фактов
+    // Карусель фактов
     setTimeout(() => {
         const factCards = document.querySelectorAll('.fact-card');
         const dots = document.querySelectorAll('.dot');
@@ -831,7 +830,6 @@
             dot.addEventListener('click', () => showFact(index));
         });
 
-        // Свайпы на телефоне
         const carousel = document.querySelector('.facts-carousel');
         if (carousel) {
             let touchStartX = 0;
@@ -847,7 +845,8 @@
                 if (touchEndX > touchStartX + 50) prevFact();
             });
         }
-    }, 100); // Небольшая задержка, чтобы DOM точно загрузился
+    }, 100);
+</script>
                 
 </body>
 </html>
