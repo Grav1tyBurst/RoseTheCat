@@ -399,16 +399,31 @@ button:active,
     transform: translateY(1px);
 }
 
-/* Анимация появления блоков при скролле */
+/* Анимация появления блоков при скролле — с разных сторон */
 .fade-in {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
+/* Выезжает слева */
+.fade-left {
+    transform: translateX(-40px);
+}
+
+/* Выезжает справа */
+.fade-right {
+    transform: translateX(40px);
+}
+
+/* Выезжает снизу */
+.fade-bottom {
+    transform: translateY(40px);
+}
+
+/* Видимое состояние — возврат на место */
 .fade-in.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
 }
 
 /* Кнопка "Наверх" */
