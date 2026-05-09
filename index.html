@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Стили для липкой шапки */
         .sticky-nav {
             position: sticky;
             top: 0;
@@ -22,7 +21,6 @@
             gap: 1.5rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         .nav-link {
             background: none;
             border: none;
@@ -39,24 +37,10 @@
             gap: 0.5rem;
             text-decoration: none;
         }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        .nav-link:active {
-            transform: translateY(0);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        section, [id] {
-            scroll-margin-top: 80px;
-        }
-
+        .nav-link:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .nav-link:active { transform: translateY(0); }
+        html { scroll-behavior: smooth; }
+        section, [id] { scroll-margin-top: 80px; }
         .hero {
             display: flex;
             align-items: center;
@@ -65,7 +49,6 @@
             background: #4A4A4A;
             flex-wrap: wrap;
         }
-
         .hero-photo {
             width: 180px;
             height: 180px;
@@ -75,10 +58,7 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             cursor: default;
         }
-
-        .hero-title {
-            flex: 1;
-        }
+        .hero-title { flex: 1; }
         .hero-name {
             font-family: 'Brush Script MT', 'Brush Script Std', cursive;
             font-size: 4.5rem;
@@ -100,7 +80,6 @@
             color: #FCF1F2;
             margin-top: 0.3rem;
         }
-
         .paw-divider {
             display: flex;
             justify-content: center;
@@ -109,18 +88,12 @@
             background: #F3F3F3;
             flex-wrap: wrap;
         }
-
-        .paw-icon {
-            font-size: 0.9rem;
-            color: #545B64;
-        }
-
+        .paw-icon { font-size: 0.9rem; color: #545B64; }
         .section {
             background: #F3F3F3;
             padding: 1.5rem 2rem;
             margin-bottom: 0;
         }
-
         .section-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.8rem;
@@ -130,12 +103,7 @@
             padding: 0;
             border-bottom: none;
         }
-
-        .text-content {
-            font-size: 1rem;
-            color: #1a1a1a;
-        }
-
+        .text-content { font-size: 1rem; color: #1a1a1a; }
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -143,13 +111,11 @@
             justify-content: flex-start;
             margin: 1rem 0;
         }
-
         .gallery-item {
             position: relative;
             display: inline-block;
             cursor: pointer;
         }
-
         .gallery-item img {
             width: 220px;
             height: 220px;
@@ -160,7 +126,6 @@
             display: block;
             border: 3px solid #FCF1F2;
         }
-
         @media (hover: hover) and (pointer: fine) {
             .gallery-item:hover::before {
                 content: "🐾 🐾 🐾 🐾 🐾";
@@ -188,7 +153,6 @@
                 border-color: #545B64;
             }
         }
-
         .gallery-item:active::before {
             content: "🐾 🐾 🐾 🐾 🐾";
             position: absolute;
@@ -206,17 +170,13 @@
             border-radius: 1.2rem;
             color: #545B64;
         }
-        .gallery-item:active img {
-            transform: scale(0.99);
-        }
-
+        .gallery-item:active img { transform: scale(0.99); }
         .features-block {
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
             align-items: flex-start;
         }
-
         .features-img {
             width: 280px;
             border-radius: 1rem;
@@ -226,7 +186,6 @@
             transition: 0.3s;
             cursor: pointer;
         }
-
         @media (hover: hover) and (pointer: fine) {
             .features-img:hover {
                 transform: scale(1.01);
@@ -240,22 +199,16 @@
             outline-offset: 8px;
             transform: scale(0.99);
         }
-
-        .features-text {
-            flex: 1;
-        }
-
+        .features-text { flex: 1; }
         .features-list {
             list-style: none;
             margin-top: 1rem;
         }
-
         .features-list li {
             margin-bottom: 0.8rem;
             padding-left: 1.8rem;
             position: relative;
         }
-
         .features-list li::before {
             content: "🐾";
             position: absolute;
@@ -263,21 +216,18 @@
             color: #545B64;
             font-weight: bold;
         }
-
         .contact-footer {
             margin-top: 0.8rem;
             font-style: italic;
             color: #545B64;
             font-size: 0.9rem;
         }
-
         .closing-block {
             display: flex;
             gap: 2.5rem;
             align-items: center;
             flex-wrap: wrap;
         }
-
         .closing-img {
             width: 260px;
             border-radius: 1rem;
@@ -287,7 +237,6 @@
             transition: 0.3s;
             cursor: pointer;
         }
-
         @media (hover: hover) and (pointer: fine) {
             .closing-img:hover {
                 transform: scale(1.01);
@@ -301,18 +250,15 @@
             outline-offset: 8px;
             transform: scale(0.99);
         }
-
         .closing-text {
             flex: 1;
             font-size: 1.1rem;
             line-height: 1.5;
         }
-
         .closing-text p:last-child {
             margin-top: 0.8rem;
             font-weight: 700;
         }
-
         .footer-signature {
             text-align: center;
             font-family: 'Nunito', sans-serif;
@@ -322,17 +268,12 @@
             padding: 1rem;
             background: #F3F3F3;
         }
-
         .story-text {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
         }
-        .story-text p {
-            margin-bottom: 0.5rem;
-        }
-
-        /* Модальное окно для фото на главной странице */
+        .story-text p { margin-bottom: 0.5rem; }
         .modal {
             display: none;
             position: fixed;
@@ -344,7 +285,6 @@
             background-color: rgba(0,0,0,0.95);
             cursor: pointer;
         }
-
         .modal-content {
             position: relative;
             margin: auto;
@@ -355,7 +295,6 @@
             width: 100%;
             padding: 2rem;
         }
-
         .modal-img {
             max-width: 90%;
             max-height: 85vh;
@@ -363,7 +302,6 @@
             border-radius: 0.5rem;
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
-
         .close-modal {
             position: absolute;
             top: 20px;
@@ -375,25 +313,16 @@
             transition: 0.3s;
             z-index: 2001;
         }
-
-        .close-modal:hover {
-            color: #ccc;
-            transform: scale(1.1);
-        }
-
-        /* Выезжающие блоки при скролле */
+        .close-modal:hover { color: #ccc; transform: scale(1.1); }
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Выезжающие картинки по краям */
         .cat-slide {
             position: fixed;
             z-index: 999;
@@ -402,32 +331,21 @@
             width: 100px;
             filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));
         }
-
         .cat-slide.left {
             left: 0;
             bottom: 15%;
             transform: translateX(-100%);
         }
-
         .cat-slide.right {
             right: 0;
             top: 25%;
             transform: translateX(100%);
         }
-
         @media (max-width: 768px) {
-            .cat-slide {
-                width: 60px;
-            }
-            .cat-slide.left {
-                bottom: 10%;
-            }
-            .cat-slide.right {
-                top: 20%;
-            }
+            .cat-slide { width: 60px; }
+            .cat-slide.left { bottom: 10%; }
+            .cat-slide.right { top: 20%; }
         }
-
-        /* Карусель фактов */
         .facts-carousel {
             background: #FFF;
             border-radius: 1.2rem;
@@ -435,28 +353,14 @@
             margin-top: 1rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-
         .fact-card {
             display: none;
             text-align: center;
             animation: fadeIn 0.4s ease;
         }
-
-        .fact-card.active {
-            display: block;
-        }
-
-        .fact-icon {
-            font-size: 3rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .fact-text {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #2c2c2c;
-        }
-
+        .fact-card.active { display: block; }
+        .fact-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+        .fact-text { font-size: 1rem; line-height: 1.5; color: #2c2c2c; }
         .carousel-nav {
             display: flex;
             align-items: center;
@@ -464,9 +368,7 @@
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-
-        .carousel-prev,
-        .carousel-next {
+        .carousel-prev, .carousel-next {
             background: #545B64;
             border: none;
             color: #FCF1F2;
@@ -480,23 +382,9 @@
             align-items: center;
             justify-content: center;
         }
-
-        .carousel-prev:hover,
-        .carousel-next:hover {
-            background: #6a7480;
-            transform: scale(1.05);
-        }
-
-        .carousel-prev:active,
-        .carousel-next:active {
-            transform: scale(0.95);
-        }
-
-        .carousel-dots {
-            display: flex;
-            gap: 0.6rem;
-        }
-
+        .carousel-prev:hover, .carousel-next:hover { background: #6a7480; transform: scale(1.05); }
+        .carousel-prev:active, .carousel-next:active { transform: scale(0.95); }
+        .carousel-dots { display: flex; gap: 0.6rem; }
         .dot {
             width: 10px;
             height: 10px;
@@ -505,44 +393,25 @@
             cursor: pointer;
             transition: 0.2s;
         }
-
         .dot.active {
             background: #545B64;
             width: 24px;
             border-radius: 10px;
         }
-
-        .dot:hover {
-            background: #999;
-        }
-
+        .dot:hover { background: #999; }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateX(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
-
         @media (max-width: 768px) {
-            .fact-icon {
-                font-size: 2.5rem;
-            }
-            .fact-text {
-                font-size: 0.9rem;
-            }
-            .carousel-nav {
-                gap: 1rem;
-            }
+            .fact-icon { font-size: 2.5rem; }
+            .fact-text { font-size: 0.9rem; }
+            .carousel-nav { gap: 1rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Липкая панель навигации -->
 <div class="sticky-nav">
     <button class="nav-link" data-section="hero">🏠 Главная</button>
     <button class="nav-link" data-section="gallery">📸 Галерея</button>
@@ -622,7 +491,6 @@
                 <img class="features-img" src="images/looks_up.jpg" alt="Роза смотрит вверх" data-img="images/looks_up.jpg">
                 <div class="features-text">
                     <p>У всех есть свои особенности, и я не исключение. Некоторые из них я уже описала выше, но это, разумеется, не всё.</p>
-                    
                     <div class="facts-carousel">
                         <div class="fact-card active" data-fact="0">
                             <div class="fact-icon">🐾</div>
@@ -644,7 +512,6 @@
                             <div class="fact-icon">💨</div>
                             <div class="fact-text">Стыдно признаться, но я очень люблю, когда меня шлёпают по спинке над хвостом. Оооо, как же это приятно! Пожалуйста, никому не рассказывайте.</div>
                         </div>
-                        
                         <div class="carousel-nav">
                             <button class="carousel-prev" aria-label="Предыдущий факт">◀</button>
                             <div class="carousel-dots">
@@ -681,7 +548,7 @@
                 <button class="contact-btn" onclick="showNotification('Зачем мне телеграм? 😸')"><i class="fab fa-telegram"></i> У меня нет Телеграма</button>
                 <button class="contact-btn" onclick="showNotification('Вы серьёзно? Я же кошка! 🐾')"><i class="fas fa-envelope"></i> У меня нет почты</button>
                 <button class="contact-btn" onclick="showNotification('Серьёзно, хватит 📸😼')"><i class="fab fa-instagram"></i> У меня нет Инстаграма</button>
-                <button class="contact-btn" onclick="showNotification('Я всецело и на полном серьёзе считаю, что после захвата властью этого сайта делать там совершенно нечего. Возможно, кому-то моя позиция покажется рискованной или даже дерзкой, но то, во что развился интернет, подарило пользователям ощущение невиданной доселе свободы, а также возможности, которые раньше нельзя было даже представить. Теперь же все эти попытки запрещать, ограничивать и закрывать вызывают лишь чувство глубочайшего сожаления, как если бы у человечества пытались отнять его право на самовыражение и гражданские свободы, которые, как нам всем начало казаться, являются неотъемлимым элементом современной цивилизации. Впрочем,')"><i class="fab fa-vk"></i> У меня нет ВК</button>
+                <button class="contact-btn" onclick="showNotification('Я всецело и на полном серьёзе считаю...')"><i class="fab fa-vk"></i> У меня нет ВК</button>
             </div>
             <div class="contact-footer">
                 <i class="fas fa-paw"></i> Я же кошка, чего вы ожидали? лол
@@ -720,15 +587,13 @@
 
 <script src="js/main.js"></script>
 <script src="js/carousel.js"></script>
-<script src="js/main.js"></script>
-<script src="js/carousel.js"></script>
 <script>
     // Модальное окно для фото
     const modalHtml = `
         <div id="imageModal" class="modal" style="display: none;">
             <span class="close-modal" onclick="closeImageModal()">&times;</span>
             <div class="modal-content" onclick="event.stopPropagation()">
-                <img class="modal-img" id="imageModalImg" src="" alt="">
+                <img class="modal-img" id="imageModalImg" src="" alt="" onclick="closeImageModal()">
             </div>
         </div>
     `;
@@ -757,7 +622,7 @@
         });
     });
 
-    // Закрытие по клику на фон (тёмную область)
+    // Закрытие по клику на фон
     document.addEventListener('click', function(e) {
         const modal = document.getElementById('imageModal');
         if (e.target === modal) {
