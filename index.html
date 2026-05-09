@@ -433,6 +433,117 @@
                 white-space: nowrap;
             }
         }
+        /* Карусель фактов */
+.facts-carousel {
+    background: #FFF;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.fact-card {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.4s ease;
+}
+
+.fact-card.active {
+    display: block;
+}
+
+.fact-icon {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.fact-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2c2c2c;
+}
+
+.carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.carousel-prev,
+.carousel-next {
+    background: #545B64;
+    border: none;
+    color: #FCF1F2;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+    background: #6a7480;
+    transform: scale(1.05);
+}
+
+.carousel-prev:active,
+.carousel-next:active {
+    transform: scale(0.95);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dot.active {
+    background: #545B64;
+    width: 24px;
+    border-radius: 10px;
+}
+
+.dot:hover {
+    background: #999;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .fact-icon {
+        font-size: 2.5rem;
+    }
+    .fact-text {
+        font-size: 0.9rem;
+    }
+    .carousel-nav {
+        gap: 1rem;
+    }
+}
     </style>
 </head>
 <body>
