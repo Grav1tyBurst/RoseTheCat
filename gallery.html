@@ -267,11 +267,11 @@
     2026 Роза и ИИ
 </div>
 
-<div id="modal" class="modal">
-    <span class="close-modal" onclick="closeModal()">&times;</span>
+<div id="modal" class="modal" onclick="closeModal()">
+    <span class="close-modal" onclick="event.stopPropagation(); closeModal()">&times;</span>
     <div class="nav-btn prev-btn" onclick="event.stopPropagation(); navigate(-1)">&#10094;</div>
     <div class="nav-btn next-btn" onclick="event.stopPropagation(); navigate(1)">&#10095;</div>
-    <div class="modal-content">
+    <div class="modal-content" onclick="event.stopPropagation()">
         <img class="modal-img" id="modalImg" src="" alt="">
     </div>
 </div>
