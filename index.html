@@ -720,31 +720,17 @@
 
 <script src="js/main.js"></script>
 <script src="js/carousel.js"></script>
+<script src="js/main.js"></script>
+<script src="js/carousel.js"></script>
 <script>
-    // Оживляем кнопки в липкой шапке (если не сработало из main.js)
-    document.querySelectorAll('.nav-link[data-section]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const sectionId = this.getAttribute('data-section');
-            
-            if (sectionId === 'pet') {
-                window.location.href = 'pet.html';
-            } else {
-                const target = document.getElementById(sectionId);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }
-        });
-    });
-
     // Модальное окно для фото
     const modalHtml = `
-       <div id="imageModal" class="modal" style="display: none;">
-    <span class="close-modal" onclick="closeImageModal()">&times;</span>
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <img class="modal-img" id="imageModalImg" src="" alt="" onclick="closeImageModal()">
-    </div>
-</div>
+        <div id="imageModal" class="modal" style="display: none;">
+            <span class="close-modal" onclick="closeImageModal()">&times;</span>
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <img class="modal-img" id="imageModalImg" src="" alt="">
+            </div>
+        </div>
     `;
     document.body.insertAdjacentHTML('beforeend', modalHtml);
 
@@ -771,6 +757,7 @@
         });
     });
 
+    // Закрытие по клику на фон (тёмную область)
     document.addEventListener('click', function(e) {
         const modal = document.getElementById('imageModal');
         if (e.target === modal) {
@@ -778,6 +765,7 @@
         }
     });
 
+    // Закрытие по ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeImageModal();
