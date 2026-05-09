@@ -428,3 +428,18 @@ button:active, .contact-btn:active, .submit-btn:active, .paw-btn:active,
         top: 20%;
     }
 }
+
+/* Принудительная прокрутка шапки на всех телефонах */
+@media (max-width: 768px) {
+    .sticky-nav {
+        overflow-x: auto !important;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-link {
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+}
