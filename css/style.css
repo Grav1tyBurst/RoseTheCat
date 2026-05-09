@@ -271,18 +271,22 @@ body {
     }
 }
 
+/* Адаптивность для телефонов — шапка в одну строку с прокруткой */
 @media (max-width: 768px) {
     .sticky-nav {
         padding: 0.3rem 0.5rem;
         gap: 0.4rem;
-        overflow-x: auto;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
+        overflow-x: auto;           /* включает горизонтальную прокрутку */
+        justify-content: flex-start; /* кнопки прижаты к левому краю */
+        flex-wrap: nowrap;          /* запрещаем перенос на новую строку */
+        -webkit-overflow-scrolling: touch; /* плавная прокрутка на iPhone */
     }
+    
     .nav-link {
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
-        white-space: nowrap;
+        white-space: nowrap;        /* текст кнопки не переносится */
+        flex-shrink: 0;             /* кнопки не сжимаются */
     }
 }
 
