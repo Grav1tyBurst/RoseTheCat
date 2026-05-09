@@ -84,7 +84,7 @@ fadeElements.forEach(el => {
 // Кнопка "Наверх"
 const goTopBtn = document.createElement('button');
 goTopBtn.className = 'go-top';
-goTopBtn.innerHTML = '⬆️';
+goTopBtn.innerHTML = 'Наверх!';
 goTopBtn.setAttribute('aria-label', 'Наверх');
 document.body.appendChild(goTopBtn);
 
