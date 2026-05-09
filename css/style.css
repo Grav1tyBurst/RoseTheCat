@@ -294,20 +294,20 @@ body {
 
 /* Адаптивность для модального окна на телефонах */
 @media (max-width: 768px) {
-    .modal-content {
-        padding: 1rem;
+   .sticky-nav {
+        padding: 0.3rem 0.5rem;      /* уменьшаем внутренние отступы */
+        gap: 0.4rem;                 /* уменьшаем расстояние между кнопками */
+        overflow-x: auto;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
     }
-    .modal-img {
-        max-width: 95%;
-        max-height: 80vh;
+    
+    .nav-link {
+        font-size: 0.7rem;           /* уменьшаем размер текста */
+        padding: 0.3rem 0.6rem;      /* уменьшаем отступы внутри кнопок */
+        white-space: nowrap;
     }
 }
-/* Убираем выделение при касании на телефонах */
-* {
-    -webkit-tap-highlight-color: transparent !important;
-    outline: none !important;
-}
-
 /* Для гарантии — на всех интерактивных элементах */
 button,
 a,
