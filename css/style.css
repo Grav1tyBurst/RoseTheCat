@@ -437,12 +437,6 @@ button:active,
     transform: translateX(0) translateY(0);
 }
 
-/* Видимое состояние — возврат на место */
-.fade-in.visible {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-}
-
 /* Кнопка "Наверх" */
 .go-top {
     position: fixed;
