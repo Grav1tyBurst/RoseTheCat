@@ -1,4 +1,3 @@
-// Уведомления для главной страницы (с кнопкой "Мяу")
 function showNotification(message) {
     const notification = document.getElementById('custom-notification');
     const messageEl = document.getElementById('notification-message');
@@ -16,16 +15,13 @@ function showNotification(message) {
 function closeNotification() {
     const notification = document.getElementById('custom-notification');
     const overlay = document.getElementById('overlay');
-    
     if (notification) notification.style.display = 'none';
     if (overlay) overlay.style.display = 'none';
 }
 
-// ========== НАВИГАЦИЯ ПО КНОПКАМ В ШАПКЕ ==========
 document.querySelectorAll('.nav-link[data-section]').forEach(link => {
     link.addEventListener('click', function(e) {
         const sectionId = this.getAttribute('data-section');
-        
         if (sectionId === 'pet') {
             window.location.href = 'pet.html';
         } else {
@@ -37,7 +33,6 @@ document.querySelectorAll('.nav-link[data-section]').forEach(link => {
     });
 });
 
-// Функция для открытия модального окна с фото
 function openModal(imgSrc, modalId = 'imageModal', imgId = 'modalImg') {
     const modal = document.getElementById(modalId);
     const modalImg = document.getElementById(imgId);
@@ -56,7 +51,6 @@ function closeModal(modalId = 'imageModal') {
     }
 }
 
-// Закрытие по ESC
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         const modals = document.querySelectorAll('.modal');
@@ -70,7 +64,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Закрытие по клику на фон (overlay для уведомлений)
 document.addEventListener('click', function(e) {
     const overlay = document.getElementById('overlay');
     if (e.target === overlay) {
@@ -78,13 +71,8 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ========== АНИМАЦИЯ БЛОКОВ ПРИ СКРОЛЛЕ (выезжают слева и справа) ==========
+// ========== АНИМАЦИЯ БЛОКОВ (СЛЕВА И СПРАВА) ==========
 const fadeElements = document.querySelectorAll('.section, .hero, .gallery-main, .page-header, .guestbook-section, .form-area, .entries-log, .counter-wrapper, .paw-divider, .features-block, .closing-block, .footer-signature');
-
-// Функция для определения направления (слева — чётные, справа — нечётные)
-function getDirection(index) {
-    return index % 2 === 0 ? 'left' : 'right';
-}
 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -97,12 +85,12 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 fadeElements.forEach((el, index) => {
-    const direction = getDirection(index);
+    const direction = index % 2 === 0 ? 'left' : 'right';
     el.classList.add('fade-in', `fade-${direction}`);
     observer.observe(el);
 });
 
-// ========== КНОПКА "НАВЕРХ" ==========
+// ========== КНОПКА НАВЕРХ ==========
 const goTopBtn = document.createElement('button');
 goTopBtn.className = 'go-top';
 goTopBtn.innerHTML = 'Вверх';
@@ -118,13 +106,10 @@ window.addEventListener('scroll', function() {
 });
 
 goTopBtn.addEventListener('click', function() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// ========== ВЫЕЗЖАЮЩИЕ СИЛУЭТЫ КОШКИ ==========
+// ========== ВЫЕЗЖАЮЩИЕ СИЛУЭТЫ ==========
 const leftCat = document.createElement('img');
 leftCat.className = 'cat-slide left';
 leftCat.src = 'images/cat-silhouette.png';
@@ -146,20 +131,12 @@ window.addEventListener('scroll', function() {
         requestAnimationFrame(function() {
             const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             
-            let leftOffset = 0;
-            if (scrollPercent <= 0.4) {
-                leftOffset = (scrollPercent / 0.4) * 100;
-                leftOffset = Math.min(Math.max(leftOffset, 0), 100);
-            } else {
-                leftOffset = 100;
-            }
+            let leftOffset = scrollPercent <= 0.4 ? (scrollPercent / 0.4) * 100 : 100;
+            leftOffset = Math.min(Math.max(leftOffset, 0), 100);
             leftCat.style.transform = `translateX(${-100 + leftOffset}%)`;
             
-            let rightOffset = 0;
-            if (scrollPercent > 0.3) {
-                rightOffset = ((scrollPercent - 0.3) / 0.7) * 100;
-                rightOffset = Math.min(Math.max(rightOffset, 0), 100);
-            }
+            let rightOffset = scrollPercent > 0.3 ? ((scrollPercent - 0.3) / 0.7) * 100 : 0;
+            rightOffset = Math.min(Math.max(rightOffset, 0), 100);
             rightCat.style.transform = `translateX(${100 - rightOffset}%)`;
             
             ticking = false;
@@ -183,7 +160,6 @@ setTimeout(() => {
     function showFact(index) {
         factCards.forEach(card => card.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
-        
         factCards[index].classList.add('active');
         dots[index].classList.add('active');
         currentFact = index;
@@ -212,11 +188,9 @@ setTimeout(() => {
     if (carousel) {
         let touchStartX = 0;
         let touchEndX = 0;
-        
         carousel.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         });
-        
         carousel.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             if (touchEndX < touchStartX - 50) nextFact();
