@@ -78,19 +78,32 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ========== АНИМАЦИЯ БЛОКОВ ПРИ СКРОЛЛЕ ==========
-const fadeElements = document.querySelectorAll('.section, .hero, .gallery-main, .page-header, .guestbook-section, .form-area, .entries-log, .counter-wrapper, .paw-divider, .features-block, .closing-block');
+// ========== АНИМАЦИЯ БЛОКОВ ПРИ СКРОЛЛЕ (выезжают с разных сторон) ==========
+const fadeElements = document.querySelectorAll('.section, .hero, .gallery-main, .page-header, .guestbook-section, .form-area, .entries-log, .counter-wrapper, .paw-divider, .features-block, .closing-block, .footer-signature');
 
+// Функция для определения направления анимации
+function getDirection(index) {
+    const directions = ['left', 'right', 'bottom'];
+    return directions[index % 3];
+}
+
+// Добавляем анимационные классы и запускаем наблюдатель
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            // Блок появляется — добавляем класс visible (выезжает)
             entry.target.classList.add('visible');
+        } else {
+            // Блок уходит из зоны видимости — убираем класс (прячется обратно)
+            entry.target.classList.remove('visible');
         }
     });
-}, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+}, { threshold: 0.15 });
 
-fadeElements.forEach(el => {
-    el.classList.add('fade-in');
+fadeElements.forEach((el, index) => {
+    // Определяем направление для каждого блока
+    const direction = getDirection(index);
+    el.classList.add('fade-in', `fade-${direction}`);
     observer.observe(el);
 });
 
