@@ -116,22 +116,20 @@ goTopBtn.addEventListener('click', function() {
     });
 });
 
-// ========== ВЫЕЗЖАЮЩИЕ ЛАПКИ (без картинок) ==========
-const leftPaw = document.createElement('div');
-leftPaw.className = 'cat-slide left';
-leftPaw.innerHTML = '🐾';
-leftPaw.style.fontSize = '5rem';
-leftPaw.style.opacity = '0.2';
-leftPaw.style.fontFamily = 'monospace';
-document.body.appendChild(leftPaw);
+// ========== ВЫЕЗЖАЮЩИЕ СИЛУЭТЫ КОШКИ ==========
+const leftCat = document.createElement('img');
+leftCat.className = 'cat-slide left';
+leftCat.src = 'images/cat-silhouette.png';
+leftCat.alt = '';
+leftCat.style.width = '100px';
+document.body.appendChild(leftCat);
 
-const rightPaw = document.createElement('div');
-rightPaw.className = 'cat-slide right';
-rightPaw.innerHTML = '🐾';
-rightPaw.style.fontSize = '5rem';
-rightPaw.style.opacity = '0.2';
-rightPaw.style.fontFamily = 'monospace';
-document.body.appendChild(rightPaw);
+const rightCat = document.createElement('img');
+rightCat.className = 'cat-slide right';
+rightCat.src = 'images/cat-silhouette.png';
+rightCat.alt = '';
+rightCat.style.width = '100px';
+document.body.appendChild(rightCat);
 
 let ticking = false;
 
@@ -140,7 +138,6 @@ window.addEventListener('scroll', function() {
         requestAnimationFrame(function() {
             const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             
-            // Левая лапка выезжает при прокрутке 0–40%
             let leftOffset = 0;
             if (scrollPercent <= 0.4) {
                 leftOffset = (scrollPercent / 0.4) * 100;
@@ -148,15 +145,14 @@ window.addEventListener('scroll', function() {
             } else {
                 leftOffset = 100;
             }
-            leftPaw.style.transform = `translateX(${-100 + leftOffset}%)`;
+            leftCat.style.transform = `translateX(${-100 + leftOffset}%)`;
             
-            // Правая лапка выезжает при прокрутке 30–100%
             let rightOffset = 0;
             if (scrollPercent > 0.3) {
                 rightOffset = ((scrollPercent - 0.3) / 0.7) * 100;
                 rightOffset = Math.min(Math.max(rightOffset, 0), 100);
             }
-            rightPaw.style.transform = `translateX(${100 - rightOffset}%)`;
+            rightCat.style.transform = `translateX(${100 - rightOffset}%)`;
             
             ticking = false;
         });
